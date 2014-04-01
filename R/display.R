@@ -19,3 +19,17 @@ display <- function(mimetype, content, metadata) {
 display_html = function(content) {
     base_display('text/html', content)
 }
+
+display_png = function(data=NULL, filename=NULL, width=NULL, height=NULL) {
+    if (!is.null(data)) {
+        filename = tempfile()
+        writeBin(data, filename)
+    }
+    tf = tempfile()
+    encode(filename, tf) # base64
+    b64data = paste(readLines(tf), collapse = "")
+    metadata = setNames(list(), character(0))
+    if (!is.null(width)) metadata$width=width
+    if (!is.null(height)) metadata$height=height
+    base_display('image/png', b64data, metadata)
+}

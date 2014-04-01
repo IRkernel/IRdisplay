@@ -1,2 +1,4 @@
 export(display)
 export(display_html)
+export(display_png)
+importFrom(base64, encode)

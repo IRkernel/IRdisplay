@@ -11,3 +11,4 @@ Depends:
     R (>= 3.0.1)
 License: MIT + file LICENSE
 LazyData: true
+Imports: base64
