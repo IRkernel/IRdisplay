@@ -1,7 +1,7 @@
 Package: IRdisplay
 Title: IPython display machinery
-Description: This package provides an interface to display rich output in IPython
-    from R code, for the ipyr kernel and IPython R magic.
+Description: This package provides an interface to display rich output in
+    IPython from R code, for the ipyr kernel and IPython R magic.
 Version: 0.1
 Authors@R: c(person("Thomas", "Kluver", role = c("aut", "cre"),
     email = "thomas@kluyver.me.uk"))
@@ -11,4 +11,5 @@ Depends:
     R (>= 3.0.1)
 License: MIT + file LICENSE
 LazyData: true
-Imports: base64
+Imports:
+    base64

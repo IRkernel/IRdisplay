@@ -20,6 +20,15 @@ display_html = function(content) {
     base_display('text/html', content)
 }
 
+#'Display PNG output
+#'
+#' Either data or filename must be passed.
+#' @param data The PNG data as a raw vector
+#' @param filename The path to a PNG file
+#' @param width The width to display the image
+#' @param height The height to display the image
+#' @importFrom base64 encode
+#' @export
 display_png = function(data=NULL, filename=NULL, width=NULL, height=NULL) {
     if (!is.null(data)) {
         filename = tempfile()
