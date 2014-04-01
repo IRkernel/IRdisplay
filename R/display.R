@@ -1,5 +1,9 @@
-base_display <- function(mimetype, content, metadata) {
+base_display <- function(data, metadata) {
     warning("IR_display can only be used from the IPython R kernel and R magic.")
+}
+
+display <- function(data, metadata) {
+    base_display(data, metadata)
 }
 
 #'Display data by mimetype
@@ -8,8 +12,10 @@ base_display <- function(mimetype, content, metadata) {
 #' @param  content The data as a length 1 string vector
 #' @param  metadata A named list of metadata
 #' @export
-display <- function(mimetype, content, metadata) {
-    base_display(mimetype, content, metadata)
+display1 <- function(mimetype, content, metadata) {
+    data = list()
+    data[mimetype] = content
+    base_display(data, metadata)
 }
 
 #'Display HTML output
@@ -17,7 +23,7 @@ display <- function(mimetype, content, metadata) {
 #' @param  content The HTML as a length 1 string vector
 #' @export
 display_html = function(content) {
-    base_display('text/html', content)
+    display1('text/html', content)
 }
 
 #'Display PNG output
@@ -40,5 +46,5 @@ display_png = function(data=NULL, filename=NULL, width=NULL, height=NULL) {
     metadata = setNames(list(), character(0))
     if (!is.null(width)) metadata$width=width
     if (!is.null(height)) metadata$height=height
-    base_display('image/png', b64data, metadata)
+    display1('image/png', b64data, metadata)
 }
