@@ -2,7 +2,7 @@ base_display <- function(data, metadata) {
     warning("IR_display can only be used from the IPython R kernel and R magic.")
 }
 
-display <- function(data, metadata) {
+display <- function(data, metadata=NULL) {
     base_display(data, metadata)
 }
 
@@ -12,7 +12,7 @@ display <- function(data, metadata) {
 #' @param  content The data as a length 1 string vector
 #' @param  metadata A named list of metadata
 #' @export
-display1 <- function(mimetype, content, metadata) {
+display1 <- function(mimetype, content, metadata=NULL) {
     data = list()
     data[mimetype] = content
     base_display(data, metadata)
