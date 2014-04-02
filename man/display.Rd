@@ -1,17 +1,18 @@
 \name{display}
 \alias{display}
-\title{Display data by mimetype}
+\title{Display data by mimetype, with optional alternative representations.}
 \usage{
-display(mimetype, content, metadata)
+display(data, metadata = NULL)
 }
 \arguments{
-  \item{mimetype}{The mimetype of the data}
+  \item{data}{A named list mapping mimetypes to content
+  (base64 encoded for binary data)}
 
-  \item{content}{The data as a length 1 string vector}
-
-  \item{metadata}{A named list of metadata}
+  \item{metadata}{A named list mapping mimetypes to named
+  lists of specific metadata}
 }
 \description{
-Display data by mimetype
+Display data by mimetype, with optional alternative
+representations.
 }
 

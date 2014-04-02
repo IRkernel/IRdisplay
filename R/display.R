@@ -2,11 +2,16 @@ base_display <- function(data, metadata) {
     warning("IR_display can only be used from the IPython R kernel and R magic.")
 }
 
+#'Display data by mimetype, with optional alternative representations.
+#'
+#' @param data A named list mapping mimetypes to content (base64 encoded for binary data)
+#' @param metadata A named list mapping mimetypes to named lists of specific metadata
+#' @export
 display <- function(data, metadata=NULL) {
     base_display(data, metadata)
 }
 
-#'Display data by mimetype
+#'Display a single type of data
 #'
 #' @param mimetype The mimetype of the data
 #' @param  content The data as a length 1 string vector
