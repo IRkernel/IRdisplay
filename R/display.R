@@ -64,7 +64,7 @@ display_png = function(data = NULL, file = NULL, width = NULL, height = NULL) {
 display_svg = function(data = NULL, file = NULL, width = NULL, height = NULL) {
     if (!is.null(file)) {
         stopifnot(is.null(data))
-        data <- readChar(file)
+        data <- readChar(file, file.info(file)$size)
     }
     
     metadata = setNames(list(), character(0))
