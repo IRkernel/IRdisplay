@@ -42,7 +42,7 @@ display_html = function(content) {
 #' @export
 display_png = function(data = NULL, file = NULL, width = NULL, height = NULL) {
     if (!is.null(file)) {
-        b64data <- base64encode(filename)
+        b64data <- base64encode(file)
     } else if (!is.null(data) && is.raw(data)) {
         b64data <- base64encode(data)
     } else stop('Either need to specify raw data as vector or filename/connection')
