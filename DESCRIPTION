@@ -12,4 +12,4 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    base64
+    base64enc
