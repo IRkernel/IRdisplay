@@ -3,7 +3,7 @@
 export(display)
 export(display1)
 export(display_html)
-export(display_images)
+export(display_multi)
 export(display_pdf)
 export(display_png)
 export(display_svg)
