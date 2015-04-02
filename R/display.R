@@ -6,8 +6,8 @@ base_display <- function(data, metadata) {
 
 #'Display data by mimetype, with optional alternative representations.
 #'
-#' @param data A named list mapping mimetypes to content (base64 encoded for binary data)
-#' @param metadata A named list mapping mimetypes to named lists of specific metadata
+#' @param data  A named list mapping mimetypes to content (base64 encoded for binary data)
+#' @param metadata  A named list mapping mimetypes to named lists of specific metadata
 #' @export
 display <- function(data, metadata = NULL) {
     base_display(data, metadata)
@@ -15,13 +15,13 @@ display <- function(data, metadata = NULL) {
 
 #'Display a single type of data
 #'
-#' @param mimetype The mimetype of the data
-#' @param  content The data as a length 1 string vector
-#' @param  metadata A named list of metadata
+#' @param mimetype  The mimetype of the data
+#' @param content  The data as a length 1 string vector
+#' @param metadata  A named list of metadata
 #' @export
 display1 <- function(mimetype, content, metadata = NULL) {
-    data = list()
-    data[[mimetype]] = content
+    data <- list()
+    data[[mimetype]] <- content
     base_display(data, metadata)
 }
 
@@ -34,7 +34,7 @@ get_display_fun <- function(format) switch(
 
 #'Display a set of image formats that the output format can select from
 #'
-#' @param ... formats and their parameters.
+#' @param ...  Formats and their parameters.
 #' Parameters have to be lists if more/other than the first one (data) is given.
 #' 
 #' Allowed formats: png, pdf, svg
@@ -70,13 +70,13 @@ display_images <- function(...) {
 
 #'Display HTML output
 #'
-#' @param  content The HTML as a length 1 string vector
+#' @param content  The HTML as a length 1 string vector
 #' @export
-display_html = function(content) {
+display_html <- function(content) {
     display1('text/html', content)
 }
 
-display_binary_image = function(mimetype, data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
+display_binary_image <- function(mimetype, data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
     if (!is.null(file)) {
         b64data <- base64encode(file)
     } else if (!is.null(data) && is.raw(data)) {
@@ -96,11 +96,11 @@ display_binary_image = function(mimetype, data = NULL, file = NULL, width = NULL
 #'Display PNG output
 #'
 #' Either data or file must be passed.
-#' @param data The PNG data as a raw vector
-#' @param file The path to a PNG file or a connection
-#' @param width The width to display the image
-#' @param height The height to display the image
-#' @param defer Do not call \link{display1}, but return prepared data instead
+#' @param data  The PNG data as a raw vector
+#' @param file  The path to a PNG file or a connection
+#' @param width  The width to display the image
+#' @param height  The height to display the image
+#' @param defer  Do not call \link{display1}, but return prepared data instead
 #' 
 #' @return If \code{defer} is TRUE, a list with the components:
 #' \itemize{
@@ -111,18 +111,18 @@ display_binary_image = function(mimetype, data = NULL, file = NULL, width = NULL
 #' 
 #' @importFrom base64enc base64encode
 #' @export
-display_png = function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
+display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
     display_binary_image('image/png', data, file, width, height, defer)
 }
 
 #'Display PDF output
 #'
 #' Either data or file must be passed.
-#' @param data The PDF data as a raw vector
-#' @param file The path to a PDF file or a connection
-#' @param width The width to display the image
-#' @param height The height to display the image
-#' @param defer Do not call \link{display1}, but return prepared data instead
+#' @param data  The PDF data as a raw vector
+#' @param file  The path to a PDF file or a connection
+#' @param width  The width to display the image
+#' @param height  The height to display the image
+#' @param defer  Do not call \link{display1}, but return prepared data instead
 #' 
 #' @return If \code{defer} is TRUE, a list with the components:
 #' \itemize{
@@ -133,18 +133,18 @@ display_png = function(data = NULL, file = NULL, width = NULL, height = NULL, de
 #' 
 #' @importFrom base64enc base64encode
 #' @export
-display_pdf = function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
+display_pdf <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
     display_binary_image('application/pdf', data, file, width, height, defer)
 }
 
 #'Display SVG output
 #'
 #' Either data or file must be passed.
-#' @param data The SVG data as character vector
-#' @param filename The path to a SVG file
-#' @param width The width to display the image
-#' @param height The height to display the image
-#' @param defer Do not call \link{display1}, but return prepared data instead
+#' @param data  The SVG data as character vector
+#' @param filename  The path to a SVG file
+#' @param width  The width to display the image
+#' @param height  The height to display the image
+#' @param defer  Do not call \link{display1}, but return prepared data instead
 #' 
 #' @return If \code{defer} is TRUE, a list with the components:
 #' \itemize{
@@ -154,7 +154,7 @@ display_pdf = function(data = NULL, file = NULL, width = NULL, height = NULL, de
 #' }
 #' 
 #' @export
-display_svg = function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
+display_svg <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
     if (!is.null(file)) {
         stopifnot(is.null(data))
         data <- readChar(file, file.info(file)$size)
