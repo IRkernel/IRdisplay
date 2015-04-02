@@ -40,9 +40,9 @@ display_html = function(content) {
 #' @param height The height to display the image
 #' @importFrom base64enc base64encode
 #' @export
-display_png = function(data = NULL, file = NULL, width = NULL, height = NULL) {
+display_png = function(data = NULL, filename = NULL, width = NULL, height = NULL) {
     if (!is.null(file)) {
-        b64data <- base64encode(file)
+        b64data <- base64encode(filename)
     } else if (!is.null(data) && is.raw(data)) {
         b64data <- base64encode(data)
     } else stop('Either need to specify raw data as vector or filename/connection')
