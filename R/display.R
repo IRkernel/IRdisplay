@@ -25,12 +25,20 @@ display1 <- function(mimetype, content, metadata = NULL) {
     base_display(data, metadata)
 }
 
-get_display_fun <- function(format) switch(
-    format,
-    png = display_png,
-    pdf = display_pdf,
-    svg = display_svg,
-    stop(sprintf('invalid format “%s” specified', format)))
+#'Display HTML output
+#'
+#' @param content  The HTML as a length 1 string vector
+#' @export
+display_html <- function(content) {
+    display1('text/html', content)
+}
+
+mimes <- list(
+    png = 'image/png',
+    pdf = 'application/pdf',
+    svg = 'image/svg+xml')
+
+isbinary <- list(png = TRUE, pdf = TRUE, svg = FALSE)
 
 #'Display a set of image formats that the output format can select from
 #'
@@ -58,8 +66,7 @@ display_images <- function(...) {
         if (!is.list(params))  #`params` is just data
             params <- list(params)
         
-        args <- c(params, list(defer = TRUE))
-        def <- do.call(get_display_fun(format), args)
+        def <- do.call(prepare_image, c(list(format), params))
         
         data[[def$mimetype]] <- def$content
         if (length(def$metadata) != 0)
@@ -68,29 +75,36 @@ display_images <- function(...) {
     base_display(data, metadata)
 }
 
-#'Display HTML output
-#'
-#' @param content  The HTML as a length 1 string vector
-#' @export
-display_html <- function(content) {
-    display1('text/html', content)
-}
-
-display_binary_image <- function(mimetype, data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
-    if (!is.null(file)) {
-        b64data <- base64encode(file)
-    } else if (!is.null(data) && is.raw(data)) {
-        b64data <- base64encode(data)
-    } else stop('Either need to specify raw data as vector or filename/connection')
+prepare_image <- function(format, data = NULL, file = NULL, width = NULL, height = NULL) {
+    if (!(format %in% names(mimes)))
+        stop(sprintf('invalid format %s. Choose from %s', format, paste(names(mimes), collapse = ', ')))
+    if (is.null(file) == is.null(data))
+        stop('Either need to specify data or file, but not both')
+    
+    if (isbinary[[format]]) {
+        if (!is.null(file)) {
+            content <- base64encode(file)
+        } else if (is.raw(data)) {
+            content <- base64encode(data)
+        } else stop('Data needs to be a raw vector')
+    } else {
+        if (!is.null(file)) {
+            content <- readChar(file, file.info(file)$size)
+        } else if (is.character(data)) {
+            content <- data
+        } else stop('Data needs to be a character vector')
+    }
     
     metadata = namedlist()
     if (!is.null(width))  metadata$width  <- width
     if (!is.null(height)) metadata$height <- height
     
-    if (!defer)
-        display1(mimetype, b64data, metadata)
-    else
-        list(mimetype = mimetype, content = b64data, metadata = metadata)
+    list(mimetype = mimes[[format]], content = content, metadata = metadata)
+}
+
+display_image <- function(format, data, file, width, height) {
+    args <- prepare_image(format, data, file, width, height)
+    display1(args$mimetype, args$content, args$metadata)
 }
 
 #'Display PNG output
@@ -100,19 +114,11 @@ display_binary_image <- function(mimetype, data = NULL, file = NULL, width = NUL
 #' @param file  The path to a PNG file or a connection
 #' @param width  The width to display the image
 #' @param height  The height to display the image
-#' @param defer  Do not call \link{display1}, but return prepared data instead
-#' 
-#' @return If \code{defer} is TRUE, a list with the components:
-#' \itemize{
-#'  \item{mimetype}{\code{'image/png'}}
-#'  \item{content}{Base 64 encoded PNG data}
-#'  \item{metadata}{A list with \code{width} and \code{height} if given as parameters}
-#' }
 #' 
 #' @importFrom base64enc base64encode
 #' @export
-display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
-    display_binary_image('image/png', data, file, width, height, defer)
+display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL) {
+    display_image('png', data, file, width, height)
 }
 
 #'Display PDF output
@@ -122,19 +128,11 @@ display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL, d
 #' @param file  The path to a PDF file or a connection
 #' @param width  The width to display the image
 #' @param height  The height to display the image
-#' @param defer  Do not call \link{display1}, but return prepared data instead
-#' 
-#' @return If \code{defer} is TRUE, a list with the components:
-#' \itemize{
-#'  \item{mimetype}{\code{'application/pdf'}}
-#'  \item{content}{Base 64 encoded PDF data}
-#'  \item{metadata}{A list with \code{width} and \code{height} if given as parameters}
-#' }
 #' 
 #' @importFrom base64enc base64encode
 #' @export
-display_pdf <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
-    display_binary_image('application/pdf', data, file, width, height, defer)
+display_pdf <- function(data = NULL, file = NULL, width = NULL, height = NULL) {
+    display_image('pdf', data, file, width, height)
 }
 
 #'Display SVG output
@@ -144,28 +142,8 @@ display_pdf <- function(data = NULL, file = NULL, width = NULL, height = NULL, d
 #' @param filename  The path to a SVG file
 #' @param width  The width to display the image
 #' @param height  The height to display the image
-#' @param defer  Do not call \link{display1}, but return prepared data instead
-#' 
-#' @return If \code{defer} is TRUE, a list with the components:
-#' \itemize{
-#'  \item{mimetype}{\code{'image/svg+xml'}}
-#'  \item{content}{SVG code as character string}
-#'  \item{metadata}{A list with \code{width} and \code{height} if given as parameters}
-#' }
 #' 
 #' @export
-display_svg <- function(data = NULL, file = NULL, width = NULL, height = NULL, defer = FALSE) {
-    if (!is.null(file)) {
-        stopifnot(is.null(data))
-        data <- readChar(file, file.info(file)$size)
-    }
-    
-    metadata = namedlist()
-    if (!is.null(width))  metadata$width  <- width
-    if (!is.null(height)) metadata$height <- height
-    
-    if (!defer)
-        display1('image/svg+xml', data, metadata)
-    else
-        list(mimetype = 'image/svg+xml', content = data, metadata = metadata)
+display_svg <- function(data = NULL, file = NULL, width = NULL, height = NULL) {
+    display_image('svg', data, file, width, height)
 }
