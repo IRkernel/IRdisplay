@@ -36,7 +36,7 @@ display1 <- function(mimetype, content, metadata = NULL) {
 #' 
 #' @examples
 #' \dontrun{
-#' display_multi(
+#' display_alternatives(
 #'   'text/html'       = '<em>Wop</em>'
 #'   'application/pdf' = base64encode('test.pdf'),
 #'   'image/png'       = list(some.png.data, width = 800, height = 600),
@@ -45,7 +45,7 @@ display1 <- function(mimetype, content, metadata = NULL) {
 #' 
 #' @importFrom base64enc base64encode
 #' @export
-display_multi <- function(..., metadata = namedlist()) {
+display_alternatives <- function(..., metadata = namedlist()) {
     contents <- list(...)
     
     data <- list()
@@ -87,7 +87,7 @@ prepare_content <- function(data = NULL, file = NULL, isbinary = TRUE) {
 
 display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
     content <- prepare_content(data, file, isbinary)
-    display1(content, metadata)
+    display1(mimetype, content, metadata)
 }
 
 #'Display HTML output
