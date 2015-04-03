@@ -27,47 +27,48 @@ display1 <- function(mimetype, content, metadata = NULL) {
 
 #'Display a set of formatted objects that the Jupyter frontend/output can select from
 #'
-#' @param ...  Formats and their parameters.
-#' Parameters have to be lists if more/other than the first one (data) is given.
+#' @param metadata  Initial metadata. Mimetype-wise data will be added
+#' @param ...  Mimetypes and content.
 #' 
-#' Allowed formats: html, png, pdf, svg
+#' You can either give raw vectors or character vectors as content.
+#' 
+#' Also you can give a list of which the first element will be content, the rest metadata.
 #' 
 #' @examples
 #' \dontrun{
 #' display_multi(
-#'   html = '<em>Wop</em>'
-#'   pdf = list(file = 'test.pdf'),
-#'   png = list(some.png.data, metadata = list(width = 800, height = 600)),
-#'   svg = '<svg></svg>')
+#'   'text/html'       = '<em>Wop</em>'
+#'   'application/pdf' = base64encode('test.pdf'),
+#'   'image/png'       = list(some.png.data, width = 800, height = 600),
+#'   'image/svg+xml'   = '<svg></svg>')
 #' }
 #' 
+#' @importFrom base64enc base64encode
 #' @export
-display_multi <- function(...) {
-    paramsets <- list(...)
+display_multi <- function(..., metadata = namedlist()) {
+    contents <- list(...)
     
     data <- list()
-    metadata <- namedlist()
-    for (format in names(paramsets)) {
-        params <- paramsets[[format]]
-        if (!is.list(params))  #`params` is just data
-            params <- list(params)
+    for (mime in names(contents)) {
+        content <- contents[[mime]]
+        if (is.list(content)) {
+            metadata[[mime]] <- content[-1]
+            content <- content[[1]]
+        }
         
-        def <- do.call(prepare, c(list(format), params))
+        if (is.raw(content))
+            content <- base64encode(content)
         
-        data[[def$mimetype]] <- def$content
-        if (length(def$metadata) != 0)
-            metadata[[def$mimetype]] <- def$metadata
+        data[[mime]] <- c(data[[mime]], content)  #append if existing
     }
     base_display(data, metadata)
 }
 
-prepare <- function(format, data = NULL, file = NULL) {
-    if (!(format %in% names(mimes)))
-        stop(sprintf('invalid format %s. Choose from %s', format, paste(names(mimes), collapse = ', ')))
+prepare_content <- function(data = NULL, file = NULL, isbinary = TRUE) {
     if (is.null(file) == is.null(data))
         stop('Either need to specify data or file, but not both')
     
-    if (isbinary[[format]]) {
+    if (isbinary) {
         if (!is.null(file)) {
             content <- base64encode(file)
         } else if (is.raw(data)) {
@@ -81,25 +82,13 @@ prepare <- function(format, data = NULL, file = NULL) {
         } else stop('Data needs to be a character vector')
     }
     
-    list(mimetype = mimes[[format]], content = content)
+    content
 }
 
-display_raw <- function(format, data, file, metadata = NULL) {
-    args <- prepare(format, data, file)
-    display1(args$mimetype, args$content, metadata)
+display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
+    content <- prepare_content(data, file, isbinary)
+    display1(content, metadata)
 }
-
-mimes <- list(
-    html = 'text/html',
-    png = 'image/png',
-    pdf = 'application/pdf',
-    svg = 'image/svg+xml')
-
-isbinary <- list(
-    html = FALSE,
-    png = TRUE,
-    pdf = TRUE,
-    svg = FALSE)
 
 #'Display HTML output
 #'
@@ -108,7 +97,7 @@ isbinary <- list(
 #' @param file  The path to a HTML file or a connection
 #' @export
 display_html <- function(data = NULL, file = NULL) {
-    display_raw('html', data, file)
+    display_raw('text/html', FALSE, data, file)
 }
 
 #'Display PNG output
@@ -119,14 +108,13 @@ display_html <- function(data = NULL, file = NULL) {
 #' @param width  The width to display the image
 #' @param height  The height to display the image
 #' 
-#' @importFrom base64enc base64encode
 #' @export
 display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL) {
     metadata = namedlist()
     if (!is.null(width))  metadata$width  <- width
     if (!is.null(height)) metadata$height <- height
     
-    display_raw('png', data, file, metadata)
+    display_raw('image/png', TRUE, data, file, metadata)
 }
 
 #'Display PDF output
@@ -135,9 +123,8 @@ display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL) {
 #' @param data  The PDF data as a raw vector
 #' @param file  The path to a PDF file or a connection
 #' 
-#' @importFrom base64enc base64encode
 #' @export
-display_pdf <- function(data = NULL, file = NULL) display_raw('pdf', data, file)
+display_pdf <- function(data = NULL, file = NULL) display_raw('application/pdf', TRUE, data, file)
 
 #'Display SVG output
 #'
@@ -146,4 +133,4 @@ display_pdf <- function(data = NULL, file = NULL) display_raw('pdf', data, file)
 #' @param filename  The path to a SVG file
 #' 
 #' @export
-display_svg <- function(data = NULL, file = NULL) display_raw('svg', data, file)
+display_svg <- function(data = NULL, file = NULL) display_raw('image/svg+xml', FALSE, data, file)
