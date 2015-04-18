@@ -22,7 +22,7 @@ Display a set of formatted objects that the Jupyter frontend/output can select f
 \dontrun{
 display_alternatives(
   'text/html'       = '<em>Wop</em>'
-  'application/pdf' = base64encode('test.pdf'),
+  'application/pdf' = base64encode('test.pdf'), #or readBin
   'image/png'       = list(some.png.data, width = 800, height = 600),
   'image/svg+xml'   = '<svg></svg>')
 }

@@ -38,12 +38,11 @@ display1 <- function(mimetype, content, metadata = NULL) {
 #' \dontrun{
 #' display_alternatives(
 #'   'text/html'       = '<em>Wop</em>'
-#'   'application/pdf' = base64encode('test.pdf'),
+#'   'application/pdf' = base64encode('test.pdf'), #or readBin
 #'   'image/png'       = list(some.png.data, width = 800, height = 600),
 #'   'image/svg+xml'   = '<svg></svg>')
 #' }
 #' 
-#' @importFrom base64enc base64encode
 #' @export
 display_alternatives <- function(..., metadata = namedlist()) {
     contents <- list(...)
@@ -56,14 +55,12 @@ display_alternatives <- function(..., metadata = namedlist()) {
             content <- content[[1]]
         }
         
-        if (is.raw(content))
-            content <- base64encode(content)
-        
         data[[mime]] <- c(data[[mime]], content)  #append if existing
     }
     base_display(data, metadata)
 }
 
+#' @importFrom base64enc base64encode
 prepare_content <- function(data = NULL, file = NULL, isbinary = TRUE) {
     if (is.null(file) == is.null(data))
         stop('Either need to specify data or file, but not both')
