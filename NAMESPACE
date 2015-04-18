@@ -2,7 +2,9 @@
 
 export(display)
 export(display1)
+export(display_alternatives)
 export(display_html)
+export(display_pdf)
 export(display_png)
 export(display_svg)
 importFrom(base64enc,base64encode)
