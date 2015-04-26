@@ -12,7 +12,7 @@ opt.defaults <- list(
         'application/pdf',
         'image/png',
         'image/jpeg',
-        'image/svg+xml'),
+        'image/svg+xml')
 )
 
 .onLoad <- function(libname = NULL, pkgname = NULL) {
