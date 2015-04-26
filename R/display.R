@@ -150,7 +150,7 @@ display_pdf <- function(data = NULL, file = NULL) display_raw('application/pdf',
 #'
 #' Either data or file must be passed.
 #' @param data  The SVG data as character vector
-#' @param filename  The path to a SVG file
+#' @param file  The path to a SVG file
 #' 
 #' @export
 display_svg <- function(data = NULL, file = NULL) display_raw('image/svg+xml', FALSE, data, file)
