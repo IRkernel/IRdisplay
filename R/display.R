@@ -11,18 +11,6 @@ publish_mimebundle <- function(data, metadata=NULL) {
     base_display(data, metadata)
 }
 
-#' Display a single type of data
-#'
-#' @param mimetype  The mimetype of the data
-#' @param content  The data as a length 1 string vector
-#' @param metadata  A named list of metadata
-#' @export
-display1 <- function(mimetype, content, metadata=NULL) {
-    data = list()
-    data[mimetype] = content
-    base_display(data, metadata)
-}
-
 #' Display an object using any available reprs
 #'
 #' @param obj  The object to be displayed
@@ -65,7 +53,9 @@ prepare_content <- function(isbinary, data, file) {
 
 display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
     content <- prepare_content(isbinary, data, file)
-    display1(mimetype, content, metadata)
+    bundle <- list()
+    bundle[[mimetype]] <- content
+    publish_mimebundle(bundle, metadata)
 }
 
 #' Display JSON
