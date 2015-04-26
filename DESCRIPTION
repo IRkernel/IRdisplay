@@ -4,7 +4,9 @@ Description: This package provides an interface to display rich output in
     IPython from R code, for the ipyr kernel and IPython R magic.
 Version: 0.2
 Authors@R: c(person("Thomas", "Kluyver", role = c("aut", "cre"),
-    email = "thomas@kluyver.me.uk"))
+    email = "thomas@kluyver.me.uk"),
+    person("Philipp", "A.", role = "aut",
+    email = "flying-sheep@web.de"))
 Author: Thomas Kluyver <thomas@kluyver.me.uk>
 Maintainer: Thomas Kluyver <thomas@kluyver.me.uk>
 Depends:
