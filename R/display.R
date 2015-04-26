@@ -7,7 +7,7 @@ base_display <- function(data, metadata) {
 #' @param data A named list mapping mimetypes to content (base64 encoded for binary data)
 #' @param metadata A named list mapping mimetypes to named lists of specific metadata
 #' @export
-display <- function(data, metadata=NULL) {
+publish_mimebundle <- function(data, metadata=NULL) {
     base_display(data, metadata)
 }
 
@@ -21,6 +21,24 @@ display1 <- function(mimetype, content, metadata=NULL) {
     data = list()
     data[mimetype] = content
     base_display(data, metadata)
+}
+
+#' Display an object using any available reprs
+#'
+#' @param obj The object to be displayed
+#' @importFrom repr mime2repr repr_text
+#' @export
+display <- function (obj) {
+    data <- list()
+    if (getOption('jupyter.rich_display')) {
+        for (mime in getOption('jupyter.display_mimetypes')) {
+            r <- mime2repr[[mime]](obj)
+            if (!is.null(r)) data[[mime]] <- r
+        }
+    } else {
+        data[['text/plain']] <- repr_text(obj)
+    }
+    publish_mimebundle(data)
 }
 
 prepare_content <- function(isbinary, data, file) {
