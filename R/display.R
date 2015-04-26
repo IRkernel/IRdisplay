@@ -2,20 +2,20 @@ base_display <- function(data, metadata) {
     warning("IR_display can only be used from the IPython R kernel and R magic.")
 }
 
-#'Display data by mimetype, with optional alternative representations.
+#' Display data by mimetype, with optional alternative representations.
 #'
-#' @param data A named list mapping mimetypes to content (base64 encoded for binary data)
-#' @param metadata A named list mapping mimetypes to named lists of specific metadata
+#' @param data  A named list mapping mimetypes to content (base64 encoded for binary data)
+#' @param metadata  A named list mapping mimetypes to named lists of specific metadata
 #' @export
 publish_mimebundle <- function(data, metadata=NULL) {
     base_display(data, metadata)
 }
 
-#'Display a single type of data
+#' Display a single type of data
 #'
-#' @param mimetype The mimetype of the data
-#' @param  content The data as a length 1 string vector
-#' @param  metadata A named list of metadata
+#' @param mimetype  The mimetype of the data
+#' @param content  The data as a length 1 string vector
+#' @param metadata  A named list of metadata
 #' @export
 display1 <- function(mimetype, content, metadata=NULL) {
     data = list()
@@ -25,7 +25,7 @@ display1 <- function(mimetype, content, metadata=NULL) {
 
 #' Display an object using any available reprs
 #'
-#' @param obj The object to be displayed
+#' @param obj  The object to be displayed
 #' @importFrom repr mime2repr repr_text
 #' @export
 display <- function (obj) {
