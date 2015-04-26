@@ -23,7 +23,7 @@ display1 <- function(mimetype, content, metadata=NULL) {
     base_display(data, metadata)
 }
 
-prepare_content <- function(data = NULL, file = NULL, isbinary = TRUE) {
+prepare_content <- function(isbinary, data, file) {
     if (is.null(file) == is.null(data))
         stop('Either need to specify data or file, but not both')
     
@@ -45,7 +45,7 @@ prepare_content <- function(data = NULL, file = NULL, isbinary = TRUE) {
 }
 
 display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
-    content <- prepare_content(data, file, isbinary)
+    content <- prepare_content(isbinary, data, file)
     display1(mimetype, content, metadata)
 }
 
