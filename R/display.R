@@ -98,6 +98,11 @@ display_markdown <- function(data = NULL, file = NULL) display_raw('text/markdow
 #' @export
 display_latex <- function(data = NULL, file = NULL) display_raw('text/latex', FALSE, data, file)
 
+namedlist <- function() {
+    # create an empty named list
+    return(setNames(list(), character(0)))
+}
+
 #' Display PNG output
 #'
 #' Either data or file must be passed.
