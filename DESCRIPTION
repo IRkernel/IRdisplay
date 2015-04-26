@@ -3,7 +3,7 @@ Title: IPython display machinery
 Description: This package provides an interface to display rich output in
     IPython from R code, for the ipyr kernel and IPython R magic.
 Version: 0.2
-Authors@R: c(person("Thomas", "Kluver", role = c("aut", "cre"),
+Authors@R: c(person("Thomas", "Kluyver", role = c("aut", "cre"),
     email = "thomas@kluyver.me.uk"))
 Author: Thomas Kluyver <thomas@kluyver.me.uk>
 Maintainer: Thomas Kluyver <thomas@kluyver.me.uk>
@@ -12,4 +12,5 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
+    repr,
     base64enc
