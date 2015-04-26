@@ -9,7 +9,7 @@ display_svg(data = NULL, file = NULL)
 \arguments{
 \item{data}{The SVG data as character vector}
 
-\item{filename}{The path to a SVG file}
+\item{file}{The path to a SVG file}
 }
 \description{
 Either data or file must be passed.
