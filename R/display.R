@@ -41,6 +41,7 @@ display <- function (obj) {
     publish_mimebundle(data)
 }
 
+#' @importFrom base64enc base64encode
 prepare_content <- function(isbinary, data, file) {
     if (is.null(file) == is.null(data))
         stop('Either need to specify data or file, but not both')
