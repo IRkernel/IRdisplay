@@ -1,3 +1,6 @@
+# create an empty named list
+namedlist <- function() setNames(list(), character(0))
+
 base_display <- function(data, metadata) {
     warning("IR_display can only be used from the IPython R kernel and R magic.")
 }
@@ -17,7 +20,7 @@ publish_mimebundle <- function(data, metadata=NULL) {
 #' @importFrom repr mime2repr repr_text
 #' @export
 display <- function (obj) {
-    data <- list()
+    data <- namedlist()
     if (getOption('jupyter.rich_display')) {
         for (mime in getOption('jupyter.display_mimetypes')) {
             r <- mime2repr[[mime]](obj)
@@ -97,11 +100,6 @@ display_markdown <- function(data = NULL, file = NULL) display_raw('text/markdow
 #' @param file  The path to a LaTeX file or a connection
 #' @export
 display_latex <- function(data = NULL, file = NULL) display_raw('text/latex', FALSE, data, file)
-
-namedlist <- function() {
-    # create an empty named list
-    return(setNames(list(), character(0)))
-}
 
 #' Display PNG output
 #'
