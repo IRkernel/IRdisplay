@@ -1,4 +1,5 @@
-# create an empty named list
+# Create an empty named list
+#' @importFrom stats setNames
 namedlist <- function() setNames(list(), character(0))
 
 base_display <- function(data, metadata) {
