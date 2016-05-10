@@ -2,8 +2,8 @@
 #' @importFrom stats setNames
 namedlist <- function() setNames(list(), character(0))
 
-base_display <- function(data, metadata) {
-    warning("IR_display can only be used from the IPython R kernel and R magic.")
+base_display <- function(data, metadata = NULL) {
+    getOption('jupyter.base_display_func')(data, metadata)
 }
 
 #' Display data by mimetype, with optional alternative representations.
