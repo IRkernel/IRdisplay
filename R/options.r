@@ -13,10 +13,15 @@ opt.defaults <- list(
         'image/png',
         'image/jpeg',
         'image/svg+xml'),
-    jupyter.base_display_func = function(data,  metadata = NULL){
-        warning('IRdisplay can only be used from the IPython R kernel and R magic.')
+    jupyter.base_display_func = function(data,  metadata = NULL) {
+        if ('text/plain' %in% names(data)) {
+            cat(data[['text/plain']])
+        } else warning(
+            'IRdisplay is designed to work with an IRkernel or R magic. ',
+            'Non-textual data cannot be displayed in an unknown environment, ',
+            'and we only have the following mime types:\n',
+            paste(names(data), collapse = ', '))
     }
-    
 )
 
 .onLoad <- function(libname = NULL, pkgname = NULL) {
