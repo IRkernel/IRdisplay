@@ -20,15 +20,11 @@ publish_mimebundle <- function(data, metadata=NULL) {
 #' @param obj  The object to be displayed
 #' @importFrom repr mime2repr repr_text
 #' @export
-display <- function (obj) {
+display <- function(obj) {
     data <- namedlist()
-    if (getOption('jupyter.rich_display')) {
-        for (mime in getOption('jupyter.display_mimetypes')) {
-            r <- mime2repr[[mime]](obj)
-            if (!is.null(r)) data[[mime]] <- r
-        }
-    } else {
-        data[['text/plain']] <- repr_text(obj)
+    for (mime in getOption('jupyter.display_mimetypes')) {
+        r <- mime2repr[[mime]](obj)
+        if (!is.null(r)) data[[mime]] <- r
     }
     publish_mimebundle(data)
 }
