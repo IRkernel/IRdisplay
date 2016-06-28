@@ -69,6 +69,16 @@ test_that('display_html works', {
     expect_equal(get_last_data(), list(exp, NULL))
 })
 
+test_that('display_html with full html page', {
+    exp <- namedlist()
+    exp_md <- namedlist()
+    display_html('<html><body>text</body></html>')
+    exp[['text/html']] <- '<html><body>text</body></html>'
+    exp_md[['text/html']] <- list(isolated = TRUE)
+    expect_equal(get_last_data(),list(exp, exp_md))
+})
+
+
 test_that('display_markdown works', {
     exp <- namedlist()
     display_markdown('data')
