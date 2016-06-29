@@ -13,15 +13,12 @@ get_last_data <- function() {
 }
 
 old_base_display <- getOption('jupyter.base_display_func')
-old_rich <- getOption('jupyter.rich_display')
 
 on.exit({
     options(jupyter.base_display_func = old_base_display)
-    options(jupyter.rich_display = old_rich)
 })
 
 options(jupyter.base_display_func = test_display_func)
-options(jupyter.rich_display = FALSE)
 
 
 test_that('publish_mimebundle works', {

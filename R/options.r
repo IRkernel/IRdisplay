@@ -1,5 +1,4 @@
 opt.defaults <- list(
-    jupyter.rich_display = TRUE,
     jupyter.display_mimetypes = c(
         'text/plain',
         'text/html',
