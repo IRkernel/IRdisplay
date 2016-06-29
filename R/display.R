@@ -55,6 +55,21 @@ display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
     content <- prepare_content(isbinary, data, file)
     bundle <- list()
     bundle[[mimetype]] <- content
+    # Isolating full html pages (putting them in an iframe)
+    if (identical(mimetype, 'text/html')) {
+        if (grepl('<html.*>', content, ignore.case = TRUE)) {
+            if (is.null(metadata)) {
+                metadata <- namedlist()
+            }
+            html_md <- metadata[[mimetype]]
+            if (is.null(html_md)) {
+                html_md <- list(isolated = TRUE)
+            } else {
+                html_md[['isolated']] <- TRUE
+            }
+            metadata[[mimetype]] <- html_md
+        }
+    }
     publish_mimebundle(bundle, metadata)
 }
 
