@@ -33,12 +33,19 @@ test_that('publish_mimebundle works', {
 
 test_that('display works', {
     exp <- namedlist()
+    # NULL only displays in plain/text
     display(NULL)
     exp[['text/plain']] <- repr_text(NULL)
     expect_equal(get_last_data(), list(exp, NULL))
-    display(1)
+    # This displays in everything, but just test it with html and plain text
+    withr::with_options(
+        list(jupyter.display_mimetypes = c('text/plain', 'text/html')),
+        display(1)
+    )
     exp[['text/plain']] <- repr_text(1)
-    expect_equal(get_last_data(), list(exp, NULL))
+    exp[['text/html']] <- repr_html(1)
+    res = get_last_data()
+    expect_equal(res, list(exp, NULL))
 })
 
 test_that('display_raw works', {
