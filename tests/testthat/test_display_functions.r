@@ -41,6 +41,34 @@ test_that('display only creates the jupyter.display_mimetypes', {
     expect_equal(res, list(exp, NULL))
 })
 
+test_that('display attaches metadata', {
+    exp <- list(
+        'text/plain' = '<html>x</html>',
+        'text/html'  = '<html>x</html>')
+    exp_md <- list('text/html' = list(isolated = TRUE))
+    
+    withr::with_options(list(jupyter.display_mimetypes = c('text/plain', 'text/html')), {
+        .GlobalEnv$repr_text.html_literal <- .GlobalEnv$repr_html.html_literal <- function(obj, ...) unclass(obj)
+        display(structure('<html>x</html>', class = 'html_literal'))
+    })
+    res <- get_last_data()
+    expect_equal(res, list(exp, exp_md))
+})
+
+test_that('display handles raw data', {
+    exp <- list(
+        'text/plain' = 'PNG data: 01 02 03 04 05...',
+        'image/png' = 'AQIDBAUGBwgJCg==')
+    
+    withr::with_options(list(jupyter.display_mimetypes = c('text/plain', 'image/png')), {
+        .GlobalEnv$repr_text.raw_png <- function(obj, ...) sprintf('PNG data: %s...', paste(obj[1:5], collapse = ' '))
+        .GlobalEnv$repr_png.raw_png <- function(obj, ...) unclass(obj)
+        display(structure(as.raw(1:10), class = 'raw_png'))
+    })
+    res <- get_last_data()
+    expect_equal(res, list(exp, NULL))
+})
+
 test_that('display needs > 0 display_mimetypes', {
     withr::with_options(
         list(jupyter.display_mimetypes = character(0L)),

@@ -17,12 +17,19 @@ display <- function(obj) {
     mimes <- getOption('jupyter.display_mimetypes')
     if (length(mimes) == 0L)
         stop('option jupyter.display_mimetypes may not be NULL or of length 0')
-    data <- filter_map(mimes, function(mime) mime2repr[[mime]](obj))
-    publish_mimebundle(data)
+    
+    data <- filter_map(mimes, function(mime) {
+        rpr <- mime2repr[[mime]](obj)
+        if (is.null(rpr)) return(NULL)
+        prepare_content(is.raw(rpr), rpr)
+    })
+    metadata <- isolate_full_html(data[['text/html']])
+    
+    publish_mimebundle(data, metadata)
 }
 
 #' @importFrom base64enc base64encode
-prepare_content <- function(isbinary, data, file) {
+prepare_content <- function(isbinary, data = NULL, file = NULL) {
     if (is.null(file) == is.null(data))
         stop('Either need to specify data or file, but not both')
     
@@ -49,7 +56,7 @@ display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
     bundle[[mimetype]] <- content
     
     # Special case: modify metadata if the content is a complete HTML document
-    metadata <- isolate_full_html(metadata, content, mimetype)
+    metadata <- isolate_full_html(content, metadata, mimetype)
     
     publish_mimebundle(bundle, metadata)
 }

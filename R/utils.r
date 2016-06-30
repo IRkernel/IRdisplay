@@ -13,9 +13,9 @@ img_metadata <- function(width, height) {
     metadata
 }
 
-# add an "isolate" flag to <html>-containing data
-isolate_full_html <- function(metadata, content, mime) {
-    if (!identical(mime, 'text/html') || !grepl('<html.*>', content, ignore.case = TRUE))
+# add an "isolate" flag to <html>-containing data, or the unchanged metadata
+isolate_full_html <- function(content, metadata = NULL, mime = 'text/html') {
+    if (!identical(mime, 'text/html') || !isTRUE(grepl('<html.*>', content, ignore.case = TRUE)))
         return(metadata)
     
     if (is.null(metadata)) metadata <- list()
