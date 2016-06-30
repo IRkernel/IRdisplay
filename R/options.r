@@ -12,11 +12,9 @@ opt.defaults <- list(
         'image/png',
         'image/jpeg',
         'image/svg+xml'),
-    jupyter.base_display_func = function(data,  metadata = NULL){
+    jupyter.base_display_func = function(data, metadata = NULL) {
         warning('IRdisplay can only be used from the IPython R kernel and R magic.')
-    }
-    
-)
+    })
 
 .onLoad <- function(libname = NULL, pkgname = NULL) {
     for (option in names(opt.defaults)) {

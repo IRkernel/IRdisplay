@@ -1,4 +1,4 @@
-context('display functions')
+context('general display functions')
 library(repr)
 
 last_data <- NULL
@@ -12,125 +12,50 @@ get_last_data <- function() {
     ret
 }
 
-old_base_display <- getOption('jupyter.base_display_func')
-
-on.exit({
-    options(jupyter.base_display_func = old_base_display)
-})
-
-options(jupyter.base_display_func = test_display_func)
-
+withr::with_options(list(jupyter.base_display_func = test_display_func), {
 
 test_that('publish_mimebundle works', {
     publish_mimebundle(NULL)
     expect_equal(get_last_data(), list(NULL, NULL))
+    
     publish_mimebundle(1, 1)
     expect_equal(get_last_data(), list(1, 1))
 })
 
 test_that('display works', {
-    exp <- namedlist()
-    # NULL only displays in plain/text
+    # NULL only displays in text/plain
+    exp <- list('text/plain' = repr_text(NULL))
     display(NULL)
-    exp[['text/plain']] <- repr_text(NULL)
     expect_equal(get_last_data(), list(exp, NULL))
-    # This displays in everything, but just test it with html and plain text
+})
+
+test_that('display only creates the jupyter.display_mimetypes', {
+    exp <- list(
+        'text/plain' = repr_text(1),
+        'text/html'  = repr_html(1))
+    
     withr::with_options(
         list(jupyter.display_mimetypes = c('text/plain', 'text/html')),
-        display(1)
-    )
-    exp[['text/plain']] <- repr_text(1)
-    exp[['text/html']] <- repr_html(1)
-    res = get_last_data()
+        display(1))
+    res <- get_last_data()
     expect_equal(res, list(exp, NULL))
 })
 
+test_that('display needs > 0 display_mimetypes', {
+    withr::with_options(
+        list(jupyter.display_mimetypes = character(0L)),
+        expect_error(display(1), 'may not be NULL or of length 0'))
+    
+    withr::with_options(
+        list(jupyter.display_mimetypes = NULL),
+        expect_error(display(1), 'may not be NULL or of length 0'))
+})
+
 test_that('display_raw works', {
-    exp <- namedlist()
+    exp <- list('text/plain' = 'data')
+    
     display_raw('text/plain', FALSE, 'data', NULL)
-    exp[['text/plain']] <- 'data'
     expect_equal(get_last_data(), list(exp, NULL))
 })
 
-test_that('display_json works', {
-    exp <- namedlist()
-    display_json('data')
-    exp[['application/json']] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_javascript works', {
-    exp <- namedlist()
-    display_javascript('data')
-    exp[['application/javascript']] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_html works', {
-    exp <- namedlist()
-    display_html('data')
-    exp[['text/html']] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_html with full html page', {
-    exp <- namedlist()
-    exp_md <- namedlist()
-    display_html('<html><body>text</body></html>')
-    exp[['text/html']] <- '<html><body>text</body></html>'
-    exp_md[['text/html']] <- list(isolated = TRUE)
-    expect_equal(get_last_data(),list(exp, exp_md))
-})
-
-
-test_that('display_markdown works', {
-    exp <- namedlist()
-    display_markdown('data')
-    exp[['text/markdown']] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_latex works', {
-    exp <- namedlist()
-    display_latex('data')
-    exp[['text/latex']] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_png works', {
-    exp <- namedlist()
-    exp_metadata = namedlist()
-    display_png(charToRaw('data'))
-    exp['image/png'] <- base64encode(charToRaw('data'))
-    expect_equal(get_last_data(), list(exp, exp_metadata))
-    display_png(charToRaw('data'), width = 1, height = 2)
-    exp_metadata$width  <- 1
-    exp_metadata$height <- 2
-    expect_equal(get_last_data(), list(exp, exp_metadata))
-})
-
-test_that('display_jpeg works', {
-    exp <- namedlist()
-    exp_metadata = namedlist()
-    display_jpeg(charToRaw('data'))
-    exp['image/jpeg'] <- base64encode(charToRaw('data'))
-    expect_equal(get_last_data(), list(exp, exp_metadata))
-    display_jpeg(charToRaw('data'), width = 1, height = 2)
-    exp_metadata$width  <- 1
-    exp_metadata$height <- 2
-    expect_equal(get_last_data(), list(exp, exp_metadata))
-})
-
-test_that('display_pdf works', {
-    exp <- namedlist()
-    display_pdf(charToRaw('data'))
-    exp['application/pdf'] <- base64encode(charToRaw('data'))
-    expect_equal(get_last_data(), list(exp, NULL))
-})
-
-test_that('display_svg works', {
-    exp <- namedlist()
-    display_svg('data')
-    exp['image/svg+xml'] <- 'data'
-    expect_equal(get_last_data(), list(exp, NULL))
 })
