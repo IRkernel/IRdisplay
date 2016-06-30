@@ -2,7 +2,7 @@
 % Please edit documentation in R/display.r
 \name{display}
 \alias{display}
-\title{Display an object using any available reprs}
+\title{Display an object using all available reprs}
 \usage{
 display(obj)
 }
@@ -10,6 +10,6 @@ display(obj)
 \item{obj}{The object to be displayed}
 }
 \description{
-Display an object using any available reprs
+Display an object using all available reprs
 }
 

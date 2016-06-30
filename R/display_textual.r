@@ -20,7 +20,7 @@ display_javascript <- function(data = NULL, file = NULL) display_raw('applicatio
 #' @param data  The HTML code as a character vector
 #' @param file  The path to a HTML file or a connection
 #' @export
-display_html <- function(data = NULL, file = NULL) display_raw('text/html', FALSE, data, file)
+display_html <- function(data = NULL, file = NULL) display_raw('text/html', FALSE, data, file, isolate_full_html(list('text/html' = data)))
 
 #' Display Markdown output
 #'

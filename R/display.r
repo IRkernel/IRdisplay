@@ -7,25 +7,50 @@ publish_mimebundle <- function(data, metadata = NULL) {
     getOption('jupyter.base_display_func')(data, metadata)
 }
 
-#' Display an object using any available reprs
+#' Display an object using all available reprs
 #'
-#' @param obj  The object to be displayed
-#' @importFrom repr mime2repr repr_text
-#' @importFrom stats setNames
+#' @param obj            The object to be displayed
 #' @export
 display <- function(obj) {
-    mimes <- getOption('jupyter.display_mimetypes')
-    if (length(mimes) == 0L)
+    bundle <- prepare_mimebundle(obj)
+    publish_mimebundle(bundle$data, bundle$metadata)
+}
+
+#' Create a mimebundle for multiple reprs
+#' 
+#' @param obj            The object to create representations for displayed
+#' @param mimetypes      Mimetypes to create reprs for
+#' @param metadata       Metadata to attach to the result (can be expanded by additional metadata)
+#' @param error_handler  Function used when errors in individual reprs occur
+#' @return A list with the two items \code{data} (a list mapping mimetype to character) and \code{metadata} (mapping mimetype to lists of metadata)
+#' 
+#' @importFrom repr mime2repr
+#' @export
+prepare_mimebundle <- function(
+    obj,
+    mimetypes = getOption('jupyter.display_mimetypes'),
+    metadata = NULL,
+    error_handler = stop
+) {
+    if (length(mimetypes) == 0L)
         stop('option jupyter.display_mimetypes may not be NULL or of length 0')
     
-    data <- filter_map(mimes, function(mime) {
-        rpr <- mime2repr[[mime]](obj)
-        if (is.null(rpr)) return(NULL)
-        prepare_content(is.raw(rpr), rpr)
-    })
-    metadata <- isolate_full_html(data[['text/html']])
+    outer_handler <- if (identical(error_handler, stop)) stop else function(e) {}
     
-    publish_mimebundle(data, metadata)
+    # Use withCallingHandlers as that shows the inner stacktrace:
+    # https://stackoverflow.com/questions/15282471/get-stack-trace-on-trycatched-error-in-r
+    # the tryCatch is  still needed to prevent the error from showing
+    # up outside further up the stack :-/
+    data <- filter_map(mimetypes, function(mime) {
+        tryCatch(withCallingHandlers({
+            rpr <- mime2repr[[mime]](obj)
+            if (is.null(rpr)) return(NULL)
+            prepare_content(is.raw(rpr), rpr)
+        }, error = error_handler),
+        error = outer_handler)
+    })
+    
+    list(data = data, metadata = isolate_full_html(data, metadata))
 }
 
 #' @importFrom base64enc base64encode
@@ -52,11 +77,7 @@ prepare_content <- function(isbinary, data = NULL, file = NULL) {
 
 display_raw <- function(mimetype, isbinary, data, file, metadata = NULL) {
     content <- prepare_content(isbinary, data, file)
-    bundle <- list()
-    bundle[[mimetype]] <- content
-    
-    # Special case: modify metadata if the content is a complete HTML document
-    metadata <- isolate_full_html(content, metadata, mimetype)
-    
-    publish_mimebundle(bundle, metadata)
+    data <- list()
+    data[[mimetype]] <- content
+    publish_mimebundle(data, metadata)
 }
