@@ -14,8 +14,8 @@ get_last_data <- function() {
 withr::with_options(list(jupyter.base_display_func = test_display_func), {
 
 test_that('display_png works', {
-    dta <- charToRaw('data')
-    exp    <- list('image/png' = base64encode(dta))
+    dta <- as.raw(1:3)
+    exp    <- list('image/png' = dta)
     exp_md <- list(width = 1, height = 2)
     
     display_png(dta)
@@ -26,8 +26,8 @@ test_that('display_png works', {
 })
 
 test_that('display_jpeg works', {
-    dta <- charToRaw('data')
-    exp    <- list('image/jpeg' = base64encode(dta))
+    dta <- as.raw(1:3)
+    exp    <- list('image/jpeg' = dta)
     exp_md <- list(width = 1, height = 2)
     
     display_jpeg(dta)
@@ -38,8 +38,8 @@ test_that('display_jpeg works', {
 })
 
 test_that('display_pdf works', {
-    dta <- charToRaw('data')
-    exp <- list('application/pdf' = base64encode(dta))
+    dta <- as.raw(1:3)
+    exp <- list('application/pdf' = dta)
     
     display_pdf(dta)
     expect_equal(get_last_data(), list(exp, NULL))

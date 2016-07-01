@@ -54,14 +54,15 @@ test_that('display attaches metadata', {
 })
 
 test_that('display handles raw data', {
+    dta <- as.raw(1:10)
     exp <- list(
         'text/plain' = 'PNG data: 01 02 03 04 05...',
-        'image/png' = 'AQIDBAUGBwgJCg==')
+        'image/png' = dta)
     
     withr::with_options(list(jupyter.display_mimetypes = c('text/plain', 'image/png')), {
         .GlobalEnv$repr_text.raw_png <- function(obj, ...) sprintf('PNG data: %s...', paste(obj[1:5], collapse = ' '))
         .GlobalEnv$repr_png.raw_png <- function(obj, ...) unclass(obj)
-        display(structure(as.raw(1:10), class = 'raw_png'))
+        display(structure(dta, class = 'raw_png'))
     })
     expect_equal(get_last_data(), list(exp, NULL))
 })
