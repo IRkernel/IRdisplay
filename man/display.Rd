@@ -2,14 +2,32 @@
 % Please edit documentation in R/display.r
 \name{display}
 \alias{display}
-\title{Display an object using any available reprs}
+\alias{prepare_mimebundle}
+\title{Create and use multiple available reprs}
 \usage{
 display(obj)
+
+prepare_mimebundle(obj, mimetypes = getOption("jupyter.display_mimetypes"),
+  metadata = NULL, error_handler = stop)
 }
 \arguments{
-\item{obj}{The object to be displayed}
+\item{obj}{The object to create representations for}
+
+\item{mimetypes}{Mimetypes to create reprs for}
+
+\item{metadata}{Metadata to attach to the result (can be expanded by additional metadata)}
+
+\item{error_handler}{Function used when errors in individual reprs occur}
+}
+\value{
+\code{prepare_mimebundle} returns a list with items corresponding to the parameters of \code{\link{publish_mimebundle}} (\code{data} and \code{metadata})
 }
 \description{
-Display an object using any available reprs
+Both functions create a mimebundle for multiple reprs.
+\code{display} proceeds to publish it using \code{\link{publish_mimebundle}}.
+\code{prepare_mimebundle} returns it (see \emph{Value} for details)
+}
+\seealso{
+\code{\link{publish_mimebundle}}
 }
 

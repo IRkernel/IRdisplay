@@ -7,11 +7,14 @@
 publish_mimebundle(data, metadata = NULL)
 }
 \arguments{
-\item{data}{A named list mapping mimetypes to content (base64 encoded for binary data)}
+\item{data}{A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})}
 
-\item{metadata}{A named list mapping mimetypes to named lists of specific metadata}
+\item{metadata}{A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}}
 }
 \description{
-Display data by mimetype, with optional alternative representations.
+Calls the function stored as option value of \code{jupyter.base_display_func}.
+}
+\seealso{
+\code{\link{prepare_mimebundle}}
 }
 
