@@ -12,6 +12,10 @@ get_last_data <- function() {
     ret
 }
 
+test_that('display without a jupyter.base_display_func raises a warning', {
+    expect_warning(display(NULL), regexp = 'can only be used from')
+})
+
 withr::with_options(list(jupyter.base_display_func = test_display_func), {
 
 test_that('publish_mimebundle works', {
