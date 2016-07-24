@@ -1,8 +1,7 @@
 Package: IRdisplay
-Title: IPython Display Machinery
-Description: An interface to display rich output from the IRkernel in the
-    Frontend (e.g. Jupyter Notebook).
-Version: 0.4.2
+Title: 'Jupyter' Display Machinery
+Description: An interface to display rich output via 'IRkernel' from the front-end (e.g. 'Jupyter Notebook').
+Version: 0.4.3
 Authors@R: c(person("Thomas", "Kluyver", role = c("aut"), email = "thomas@kluyver.me.uk"),
     person("Philipp", "Angerer", role = c("aut", "cre"), email = "phil.angerer@gmail.com"),
     person("Jan", "Schulz", role = "aut", email = "jasc@gmx.net"))
