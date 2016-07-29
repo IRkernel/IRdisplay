@@ -27,6 +27,13 @@ display_latex(data = NULL, file = NULL)
 \description{
 Either \code{data} or \code{file} must be passed.
 }
+\examples{
+\dontrun{## (Run inside of an IRkernel)
+display_text('Just text')
+display_markdown('[MD](http://commonmark.org) *formatted*')
+display_javascript('execute(this)')}
+
+}
 \seealso{
 \code{\link{display_<image>}}
 }

@@ -13,7 +13,7 @@ prepare_mimebundle(obj, mimetypes = getOption("jupyter.display_mimetypes"),
 \arguments{
 \item{obj}{The object to create representations for}
 
-\item{mimetypes}{Mimetypes to create reprs for}
+\item{mimetypes}{Mimetypes to create reprs for. The defaults are defined by the option \code{jupyter.display_mimetypes}. (see: \link{IRdisplay-options})}
 
 \item{metadata}{Metadata to attach to the result (can be expanded by additional metadata)}
 
@@ -26,6 +26,14 @@ prepare_mimebundle(obj, mimetypes = getOption("jupyter.display_mimetypes"),
 Both functions create a mimebundle for multiple reprs.
 \code{display} proceeds to publish it using \code{\link{publish_mimebundle}}.
 \code{prepare_mimebundle} returns it (see \emph{Value} for details)
+}
+\examples{
+dev.new(); plot(sqrt); p <- recordPlot(); dev.off()
+bundle <- prepare_mimebundle(p)
+
+\dontrun{## (Run inside of an IRkernel)
+display(help(display))}
+
 }
 \seealso{
 \code{\link{publish_mimebundle}}

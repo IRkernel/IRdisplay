@@ -12,7 +12,15 @@ publish_mimebundle(data, metadata = NULL)
 \item{metadata}{A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}}
 }
 \description{
-Calls the function stored as option value of \code{jupyter.base_display_func}.
+Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
+}
+\examples{
+\dontrun{## (Run inside of an IRkernel)
+publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
+publish_mimebundle(
+  list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
+  list('image/svg+xml' = list(width = 100, height = 100)))}
+
 }
 \seealso{
 \code{\link{prepare_mimebundle}}

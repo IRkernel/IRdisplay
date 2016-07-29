@@ -1,11 +1,18 @@
 #' Display data by mimetype, with optional alternative representations.
 #' 
-#' Calls the function stored as option value of \code{jupyter.base_display_func}.
+#' Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
 #' 
 #' @param data      A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})
 #' @param metadata  A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}
 #' 
 #' @seealso \code{\link{prepare_mimebundle}}
+#' 
+#' @examples \dontrun{## (Run inside of an IRkernel)
+#' publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
+#' publish_mimebundle(
+#'   list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
+#'   list('image/svg+xml' = list(width = 100, height = 100)))}
+#' 
 #' @export
 publish_mimebundle <- function(data, metadata = NULL) {
     getOption('jupyter.base_display_func')(data, metadata)
@@ -18,13 +25,21 @@ publish_mimebundle <- function(data, metadata = NULL) {
 #' \code{prepare_mimebundle} returns it (see \emph{Value} for details)
 #' 
 #' @param obj            The object to create representations for
-#' @param mimetypes      Mimetypes to create reprs for
+#' @param mimetypes      Mimetypes to create reprs for. The defaults are defined by the option \code{jupyter.display_mimetypes}. (see: \link{IRdisplay-options})
 #' @param metadata       Metadata to attach to the result (can be expanded by additional metadata)
 #' @param error_handler  Function used when errors in individual reprs occur
 #' 
 #' @return \code{prepare_mimebundle} returns a list with items corresponding to the parameters of \code{\link{publish_mimebundle}} (\code{data} and \code{metadata})
 #' 
 #' @seealso \code{\link{publish_mimebundle}}
+#' 
+#' @examples
+#' dev.new(); plot(sqrt); p <- recordPlot(); dev.off()
+#' bundle <- prepare_mimebundle(p)
+#' 
+#' \dontrun{## (Run inside of an IRkernel)
+#' display(help(display))}
+#' 
 #' @name display
 #' @export
 display <- function(obj) {

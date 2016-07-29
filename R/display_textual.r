@@ -6,6 +6,12 @@
 #' @param file  The path to a file or a \code{\link[base]{connection}} containing the content
 #' 
 #' @seealso \code{\link{display_<image>}}
+#' 
+#' @examples \dontrun{## (Run inside of an IRkernel)
+#' display_text('Just text')
+#' display_markdown('[MD](http://commonmark.org) *formatted*')
+#' display_javascript('execute(this)')}
+#' 
 #' @name display_<text>
 NULL
 

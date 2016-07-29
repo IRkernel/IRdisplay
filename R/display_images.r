@@ -8,6 +8,16 @@
 #' @param height  The height to display the image
 #' 
 #' @seealso \code{\link{display_<text>}}
+#' 
+#' @examples \dontrun{## (Run inside of an IRkernel)
+#' display_png(file = 'image.png')
+#' display_svg('
+#' <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
+#'   <circle r="1"/>
+#' </svg>
+#' ')
+#' display_jpeg(file = url('http://example.com/example.jpg'), width = 100)}
+#' 
 #' @name display_<image>
 NULL
 

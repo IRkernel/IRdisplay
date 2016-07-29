@@ -10,7 +10,7 @@
 irdisplay_option_defaults
 }
 \description{
-Options to control the formats \code{\link{display}} and \code{\link{prepare_mimebundle}} emit,
+Some \link{options} to control the formats \code{\link{display}} and \code{\link{prepare_mimebundle}} emit,
 and the function they use to display them.
 }
 \section{Options}{
