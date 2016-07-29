@@ -1,39 +1,30 @@
-#' Display JSON
+#' Display a specific textual output
 #'
-#' Either data or file must be passed.
-#' @param data  The JSON code as a character vector
-#' @param file  The path to a JSON file or a connection
+#' Either \code{data} or \code{file} must be passed.
+#' 
+#' @param data  The code or markup content as a \code{\link[base]{character}} vector
+#' @param file  The path to a file or a \code{\link[base]{connection}} containing the content
+#' 
+#' @seealso \code{\link{display_<image>}}
+#' @name display_<text>
+NULL
+
+#' @name display_<text>
 #' @export
 display_json <- function(data = NULL, file = NULL) display_raw('application/json', FALSE, data, file)
 
-#' Display (execute) Javascript
-#'
-#' Either data or file must be passed.
-#' @param data  The Javascript code as a character vector
-#' @param file  The path to a Javascript file or a connection
+#' @name display_<text>
 #' @export
 display_javascript <- function(data = NULL, file = NULL) display_raw('application/javascript', FALSE, data, file)
 
-#' Display HTML output
-#'
-#' Either data or file must be passed.
-#' @param data  The HTML code as a character vector
-#' @param file  The path to a HTML file or a connection
+#' @name display_<text>
 #' @export
 display_html <- function(data = NULL, file = NULL) display_raw('text/html', FALSE, data, file, isolate_full_html(list('text/html' = data)))
 
-#' Display Markdown output
-#'
-#' Either data or file must be passed.
-#' @param data  The Markdown code as a character vector
-#' @param file  The path to a Markdown file or a connection
+#' @name display_<text>
 #' @export
 display_markdown <- function(data = NULL, file = NULL) display_raw('text/markdown', FALSE, data, file)
 
-#' Display LaTeX output
-#'
-#' Either data or file must be passed.
-#' @param data  The LaTeX code as a character vector
-#' @param file  The path to a LaTeX file or a connection
+#' @name display_<text>
 #' @export
 display_latex <- function(data = NULL, file = NULL) display_raw('text/latex', FALSE, data, file)
