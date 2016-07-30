@@ -34,8 +34,7 @@ publish_mimebundle <- function(data, metadata = NULL) {
 #' @seealso \code{\link{publish_mimebundle}}
 #' 
 #' @examples
-#' dev.new(); plot(sqrt); p <- recordPlot(); dev.off()
-#' bundle <- prepare_mimebundle(p)
+#' bundle <- prepare_mimebundle(diag(3))
 #' 
 #' \dontrun{## (Run inside of an IRkernel)
 #' display(help(display))}

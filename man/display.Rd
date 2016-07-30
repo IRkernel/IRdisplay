@@ -28,8 +28,7 @@ Both functions create a mimebundle for multiple reprs.
 \code{prepare_mimebundle} returns it (see \emph{Value} for details)
 }
 \examples{
-dev.new(); plot(sqrt); p <- recordPlot(); dev.off()
-bundle <- prepare_mimebundle(p)
+bundle <- prepare_mimebundle(diag(3))
 
 \dontrun{## (Run inside of an IRkernel)
 display(help(display))}
