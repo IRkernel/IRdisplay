@@ -1,8 +1,8 @@
 Package: IRdisplay
 Title: 'Jupyter' Display Machinery
 Description:
-    An interface to the rich display capabilities of 'Jupyter' front-ends (e.g. 'Jupyter Notebook').
-    Designed to be used from a running 'IRkernel'.
+    An interface to the rich display capabilities of 'Jupyter' front-ends (e.g. 'Jupyter Notebook') <https://jupyter.org>.
+    Designed to be used from a running 'IRkernel' session <https://irkernel.github.io>.
 Version: 0.4.4
 Authors@R: c(
     person('Thomas', 'Kluyver', role = c('aut', 'cph'), email = 'thomas@kluyver.me.uk'),
