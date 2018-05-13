@@ -25,6 +25,7 @@ isolate_full_html <- function(data, metadata = NULL) {
     metadata
 }
 
+#' @importFrom methods is
 read_all <- function(file, isbinary) {
     read <- if (isbinary)
         function(s) readBin(file, 'raw', s)
