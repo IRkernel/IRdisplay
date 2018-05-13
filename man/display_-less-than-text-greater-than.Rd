@@ -2,11 +2,11 @@
 % Please edit documentation in R/display_textual.r
 \name{display_<text>}
 \alias{display_<text>}
-\alias{display_html}
-\alias{display_javascript}
 \alias{display_json}
-\alias{display_latex}
+\alias{display_javascript}
+\alias{display_html}
 \alias{display_markdown}
+\alias{display_latex}
 \title{Display a specific textual output}
 \usage{
 display_json(data = NULL, file = NULL)
@@ -37,4 +37,3 @@ display_javascript('execute(this)')}
 \seealso{
 \code{\link{display_<image>}}
 }
-

@@ -37,4 +37,3 @@ display(help(display))}
 \seealso{
 \code{\link{publish_mimebundle}}
 }
-

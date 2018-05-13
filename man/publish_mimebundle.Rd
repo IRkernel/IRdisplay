@@ -25,4 +25,3 @@ publish_mimebundle(
 \seealso{
 \code{\link{prepare_mimebundle}}
 }
-

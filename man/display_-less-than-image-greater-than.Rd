@@ -2,9 +2,9 @@
 % Please edit documentation in R/display_images.r
 \name{display_<image>}
 \alias{display_<image>}
+\alias{display_png}
 \alias{display_jpeg}
 \alias{display_pdf}
-\alias{display_png}
 \alias{display_svg}
 \title{Display a specific image output}
 \usage{
@@ -36,10 +36,9 @@ display_svg('
   <circle r="1"/>
 </svg>
 ')
-display_jpeg(file = url('http://example.com/example.jpg'), width = 100)}
+display_jpeg(file = url('https://dummyimage.com/600x400.jpg', 'wb'), width = 100)}
 
 }
 \seealso{
 \code{\link{display_<text>}}
 }
-
