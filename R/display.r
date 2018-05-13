@@ -89,11 +89,7 @@ prepare_content <- function(isbinary, data = NULL, file = NULL) {
         }
         data 
     } else {
-        size <- file.info(file)$size
-        if (isbinary)
-            readBin(file, 'raw', size)
-        else
-            readChar(file, size)
+        read_all(file, isbinary)
     }
 }
 

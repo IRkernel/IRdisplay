@@ -16,7 +16,7 @@
 #'   <circle r="1"/>
 #' </svg>
 #' ')
-#' display_jpeg(file = url('http://example.com/example.jpg'), width = 100)}
+#' display_jpeg(file = url('https://dummyimage.com/600x400.jpg', 'wb'), width = 100)}
 #' 
 #' @name display_<image>
 NULL
