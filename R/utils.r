@@ -39,7 +39,7 @@ read_all <- function(file, isbinary) {
     } else {
         if (is.character(file)) file <- base::file(file, 'rb')
         stopifnot(is(file, 'connection'))
-        if (isOpen(file)) open(file)
+        if (!isOpen(file)) open(file)
         rv <- if (isbinary) raw() else character()
         chunk <- read(1024)
         while (length(chunk) > 0) {
