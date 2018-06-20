@@ -35,7 +35,7 @@ read_all <- function(file, isbinary) {
     size <- tryCatch(file.info(file)$size, error = function(e) NULL)
     
     if (!is.null(size)) {
-        read(file, size)
+        read(size)
     } else {
         if (is.character(file)) file <- base::file(file, 'rb')
         stopifnot(is(file, 'connection'))
