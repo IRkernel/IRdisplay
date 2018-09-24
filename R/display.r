@@ -67,7 +67,8 @@ prepare_mimebundle <- function(
     # up outside further up the stack :-/
     data <- filter_map(mimetypes, function(mime) {
         tryCatch(withCallingHandlers({
-            rpr <- mime2repr[[mime]](obj)
+            if (! mime %in% names(repr::mime2repr)) stop('No repr_* for mimetype ', mime, ' in repr::mime2repr')
+            rpr <- repr::mime2repr[[mime]](obj)
             if (is.null(rpr)) return(NULL)
             prepare_content(is.raw(rpr), rpr)
         }, error = error_handler),

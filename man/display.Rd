@@ -7,8 +7,9 @@
 \usage{
 display(obj)
 
-prepare_mimebundle(obj, mimetypes = getOption("jupyter.display_mimetypes"),
-  metadata = NULL, error_handler = stop)
+prepare_mimebundle(obj,
+  mimetypes = getOption("jupyter.display_mimetypes"), metadata = NULL,
+  error_handler = stop)
 }
 \arguments{
 \item{obj}{The object to create representations for}
