@@ -85,8 +85,6 @@ prepare_content <- function(isbinary, data = NULL, file = NULL) {
     if (is.null(file)) {
         if (isbinary) {
             if (!is.raw(data)) stop('Data needs to be a raw vector')
-        } else {
-            if (!is.character(data)) stop('Data needs to be a character vector')
         }
         data 
     } else {
