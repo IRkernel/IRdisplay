@@ -5,7 +5,8 @@
 \alias{prepare_mimebundle}
 \title{Create and use multiple available reprs}
 \usage{
-display(obj)
+display(obj, ..., mimetypes = getOption("jupyter.display_mimetypes"),
+  error_handler = stop)
 
 prepare_mimebundle(obj,
   mimetypes = getOption("jupyter.display_mimetypes"), metadata = NULL,
@@ -16,9 +17,9 @@ prepare_mimebundle(obj,
 
 \item{mimetypes}{Mimetypes to create reprs for. The defaults are defined by the option \code{jupyter.display_mimetypes}. (see: \link{IRdisplay-options})}
 
-\item{metadata}{Metadata to attach to the result (can be expanded by additional metadata)}
-
 \item{error_handler}{Function used when errors in individual reprs occur}
+
+\item{metadata, ...}{Metadata to attach to the result (can be expanded by additional metadata)}
 }
 \value{
 \code{prepare_mimebundle} returns a list with items corresponding to the parameters of \code{\link{publish_mimebundle}} (\code{data} and \code{metadata})

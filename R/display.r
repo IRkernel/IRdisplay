@@ -26,7 +26,7 @@ publish_mimebundle <- function(data, metadata = NULL) {
 #' 
 #' @param obj            The object to create representations for
 #' @param mimetypes      Mimetypes to create reprs for. The defaults are defined by the option \code{jupyter.display_mimetypes}. (see: \link{IRdisplay-options})
-#' @param metadata       Metadata to attach to the result (can be expanded by additional metadata)
+#' @param metadata,...   Metadata to attach to the result (can be expanded by additional metadata)
 #' @param error_handler  Function used when errors in individual reprs occur
 #' 
 #' @return \code{prepare_mimebundle} returns a list with items corresponding to the parameters of \code{\link{publish_mimebundle}} (\code{data} and \code{metadata})
@@ -41,8 +41,13 @@ publish_mimebundle <- function(data, metadata = NULL) {
 #' 
 #' @name display
 #' @export
-display <- function(obj) {
-    bundle <- prepare_mimebundle(obj)
+display <- function(
+    obj,
+    ...,
+    mimetypes = getOption('jupyter.display_mimetypes'),
+    error_handler = stop
+) {
+    bundle <- prepare_mimebundle(obj, mimetypes, list(...), error_handler)
     publish_mimebundle(bundle$data, bundle$metadata)
 }
 
