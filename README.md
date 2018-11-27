@@ -1,7 +1,7 @@
 IRdisplay [![b-Travis]][Travis] [![b-CRAN]][CRAN]
 =========
 
-[b-Travis]: https://travis-ci.com/IRkernel/IRdisplay.svg?branch=master "Build status"
+[b-Travis]: https://travis-ci.org/IRkernel/IRdisplay.svg?branch=master "Build status"
 [Travis]: https://travis-ci.org/IRkernel/IRdisplay
 [b-CRAN]: https://www.r-pkg.org/badges/version/IRdisplay "Comprehensive R Archive Network"
 [CRAN]: https://cran.r-project.org/package=IRdisplay
