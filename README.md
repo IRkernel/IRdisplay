@@ -21,6 +21,9 @@ display_html(data = NULL, file = NULL)
 # display_javascript(…), display_json(…), display_markdown(…), display_latex(…)
 ```
 
+Use `display` to display an object in all configured mime types (see **Configuration**),
+and the `display_*` functions to display raw data you have in form of a file or a variable.
+
 Manual use is possible via the `*_mimebundle` functions:
 
 ```r
