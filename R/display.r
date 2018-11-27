@@ -47,7 +47,9 @@ display <- function(
     mimetypes = getOption('jupyter.display_mimetypes'),
     error_handler = stop
 ) {
-    bundle <- prepare_mimebundle(obj, mimetypes, list(...), error_handler)
+    metadata <- list(...)
+    if (length(metadata) == 0L) metadata <- NULL
+    bundle <- prepare_mimebundle(obj, mimetypes, metadata, error_handler)
     publish_mimebundle(bundle$data, bundle$metadata)
 }
 
