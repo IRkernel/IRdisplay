@@ -3,7 +3,7 @@ Title: 'Jupyter' Display Machinery
 Description:
     An interface to the rich display capabilities of 'Jupyter' front-ends (e.g. 'Jupyter Notebook') <https://jupyter.org>.
     Designed to be used from a running 'IRkernel' session <https://irkernel.github.io>.
-Version: 0.6.3
+Version: 0.6.3.9000
 Authors@R: c(
     person('Thomas', 'Kluyver', role = c('aut', 'cph'), email = 'thomas@kluyver.me.uk'),
     person('Philipp', 'Angerer', role = c('aut', 'cph', 'cre'), email = 'phil.angerer@gmail.com', comment = c(ORCID = "0000-0002-0369-2888")),
@@ -19,4 +19,4 @@ Imports:
 License: MIT + file LICENSE
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
