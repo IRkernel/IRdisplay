@@ -30,6 +30,12 @@ irdisplay_option_defaults <- list(
         'application/json',
         'application/javascript',
         
+        'application/geo+json',
+        'application/vdom.v1+json',
+        'application/vnd.plotly.v1+json',
+        'application/vnd.vegalite.v2+json',
+        'application/vnd.vega.v4+json',
+        
         'application/pdf',
         'image/png',
         'image/jpeg',
