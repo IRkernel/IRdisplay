@@ -13,24 +13,25 @@
 #' display_javascript('execute(this)')}
 #' 
 #' @name display_<text>
+#' @rdname display-textual
 NULL
 
-#' @name display_<text>
+#' @rdname display-textual
 #' @export
 display_json <- function(data = NULL, file = NULL) display_raw('application/json', FALSE, data, file)
 
-#' @name display_<text>
+#' @rdname display-textual
 #' @export
 display_javascript <- function(data = NULL, file = NULL) display_raw('application/javascript', FALSE, data, file)
 
-#' @name display_<text>
+#' @rdname display-textual
 #' @export
 display_html <- function(data = NULL, file = NULL) display_raw('text/html', FALSE, data, file, isolate_full_html(list('text/html' = data)))
 
-#' @name display_<text>
+#' @rdname display-textual
 #' @export
 display_markdown <- function(data = NULL, file = NULL) display_raw('text/markdown', FALSE, data, file)
 
-#' @name display_<text>
+#' @rdname display-textual
 #' @export
 display_latex <- function(data = NULL, file = NULL) display_raw('text/latex', FALSE, data, file)

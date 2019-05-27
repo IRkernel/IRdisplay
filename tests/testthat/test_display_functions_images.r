@@ -16,7 +16,7 @@ withr::with_options(list(jupyter.base_display_func = test_display_func), {
 test_that('display_png works', {
     dta <- as.raw(1:3)
     exp    <- list('image/png' = dta)
-    exp_md <- list(width = 1, height = 2)
+    exp_md <- list('image/png' = list(width = 1, height = 2))
     
     display_png(dta)
     expect_equal(get_last_data(), list(exp, NULL))
@@ -28,7 +28,7 @@ test_that('display_png works', {
 test_that('display_jpeg works', {
     dta <- as.raw(1:3)
     exp    <- list('image/jpeg' = dta)
-    exp_md <- list(width = 1, height = 2)
+    exp_md <- list('image/jpeg' = list(width = 1, height = 2))
     
     display_jpeg(dta)
     expect_equal(get_last_data(), list(exp, NULL))

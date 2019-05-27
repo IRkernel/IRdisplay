@@ -3,14 +3,16 @@ filter_map <- function(x, f, simplify = FALSE)
     Filter(Negate(is.null), sapply(x, f, simplify = simplify))
 
 # create metadata bundle for images
-img_metadata <- function(width, height) {
+#' @importFrom stats setNames
+img_metadata <- function(mime, width, height) {
     if (is.null(width) && is.null(height))
         return(NULL)
     
     metadata <- list()
     if (!is.null(width))  metadata$width  <- width
     if (!is.null(height)) metadata$height <- height
-    metadata
+    
+    setNames(list(metadata), mime)
 }
 
 # add an "isolate" flag to <html>-containing data, or the unchanged metadata

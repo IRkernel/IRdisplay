@@ -55,7 +55,7 @@ display <- function(
 
 
 #' @importFrom repr mime2repr
-#' @name display
+#' @rdname display
 #' @export
 prepare_mimebundle <- function(
     obj,

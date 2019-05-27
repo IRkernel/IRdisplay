@@ -19,24 +19,28 @@
 #' display_jpeg(file = url('https://dummyimage.com/600x400.jpg', 'wb'), width = 100)}
 #' 
 #' @name display_<image>
+#' @rdname display-images
 NULL
 
-#' @name display_<image>
+#' @rdname display-images
 #' @export
 display_png <- function(data = NULL, file = NULL, width = NULL, height = NULL)
-    display_raw('image/png', TRUE, data, file, img_metadata(width, height))
+    display_img('image/png', TRUE, data, file, width, height)
 
-#' @name display_<image>
+#' @rdname display-images
 #' @export
 display_jpeg <- function(data = NULL, file = NULL, width = NULL, height = NULL)
-    display_raw('image/jpeg', TRUE, data, file, img_metadata(width, height))
+    display_img('image/jpeg', TRUE, data, file, width, height)
 
-#' @name display_<image>
+#' @rdname display-images
 #' @export
 display_pdf <- function(data = NULL, file = NULL, width = NULL, height = NULL)
-    display_raw('application/pdf', TRUE, data, file, img_metadata(width, height))
+    display_img('application/pdf', TRUE, data, file, width, height)
 
-#' @name display_<image>
+#' @rdname display-images
 #' @export
 display_svg <- function(data = NULL, file = NULL, width = NULL, height = NULL)
-    display_raw('image/svg+xml', FALSE, data, file, img_metadata(width, height))
+    display_img('image/svg+xml', FALSE, data, file, width, height)
+
+display_img <- function(mime, binary, data, file, width, height) 
+    display_raw(mime, binary, data, file, img_metadata(mime, width, height))
