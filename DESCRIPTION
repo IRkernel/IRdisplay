@@ -8,6 +8,8 @@ Authors@R: c(
     person('Thomas', 'Kluyver', role = c('aut', 'cph'), email = 'thomas@kluyver.me.uk'),
     person('Philipp', 'Angerer', role = c('aut', 'cph', 'cre'), email = 'phil.angerer@gmail.com', comment = c(ORCID = "0000-0002-0369-2888")),
     person('Jan', 'Schulz', role = c('aut', 'cph'), email = 'jasc@gmx.net'))
+URL: https://github.com/IRkernel/IRdisplay
+BugReports: https://github.com/IRkernel/IRdisplay/issues/
 Depends:
     R (>= 3.0.1)
 Suggests:
