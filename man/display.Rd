@@ -5,12 +5,19 @@
 \alias{prepare_mimebundle}
 \title{Create and use multiple available reprs}
 \usage{
-display(obj, ..., mimetypes = getOption("jupyter.display_mimetypes"),
-  error_handler = stop)
+display(
+  obj,
+  ...,
+  mimetypes = getOption("jupyter.display_mimetypes"),
+  error_handler = stop
+)
 
-prepare_mimebundle(obj,
-  mimetypes = getOption("jupyter.display_mimetypes"), metadata = NULL,
-  error_handler = stop)
+prepare_mimebundle(
+  obj,
+  mimetypes = getOption("jupyter.display_mimetypes"),
+  metadata = NULL,
+  error_handler = stop
+)
 }
 \arguments{
 \item{obj}{The object to create representations for}
