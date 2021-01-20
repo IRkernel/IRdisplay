@@ -2,6 +2,7 @@
 % Please edit documentation in R/display_textual.r
 \name{display_<text>}
 \alias{display_<text>}
+\alias{display_text}
 \alias{display_json}
 \alias{display_javascript}
 \alias{display_html}
@@ -9,6 +10,8 @@
 \alias{display_latex}
 \title{Display a specific textual output}
 \usage{
+display_text(data = NULL, file = NULL)
+
 display_json(data = NULL, file = NULL)
 
 display_javascript(data = NULL, file = NULL)

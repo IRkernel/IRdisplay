@@ -18,6 +18,10 @@ NULL
 
 #' @rdname display-textual
 #' @export
+display_text <- function(data = NULL, file = NULL) display_raw('text/plain', FALSE, data, file)
+
+#' @rdname display-textual
+#' @export
 display_json <- function(data = NULL, file = NULL) display_raw('application/json', FALSE, data, file)
 
 #' @rdname display-textual
