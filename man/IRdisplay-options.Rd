@@ -3,8 +3,11 @@
 \docType{data}
 \name{irdisplay_option_defaults}
 \alias{irdisplay_option_defaults}
+\alias{IRdisplay-options}
 \title{IRdisplay options}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 irdisplay_option_defaults
 }
