@@ -18,6 +18,12 @@ publish_mimebundle <- function(data, metadata = NULL) {
     getOption('jupyter.base_display_func')(data, metadata)
 }
 
+#' @describeIn publish_mimebundle Clear the output from the current cell.
+#' @export
+clear_output <- function(wait = TRUE) {
+    getOption('jupyter.clear_output_func')(wait)
+}
+
 #' Create and use multiple available reprs
 #' 
 #' Both functions create a mimebundle for multiple reprs.
