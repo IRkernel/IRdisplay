@@ -2,9 +2,12 @@
 % Please edit documentation in R/display.r
 \name{publish_mimebundle}
 \alias{publish_mimebundle}
+\alias{clear_output}
 \title{Display data by mimetype, with optional alternative representations.}
 \usage{
 publish_mimebundle(data, metadata = NULL)
+
+clear_output(wait = TRUE)
 }
 \arguments{
 \item{data}{A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})}
@@ -14,6 +17,11 @@ publish_mimebundle(data, metadata = NULL)
 \description{
 Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
 }
+\section{Functions}{
+\itemize{
+\item \code{clear_output}: Clear the output from the current cell.
+}}
+
 \examples{
 \dontrun{## (Run inside of an IRkernel)
 publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
