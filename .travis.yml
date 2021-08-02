@@ -1,6 +1,5 @@
 language: r
-distro: xenial  # binary packages
-sudo: true      # dito
+dist: focal
 cache: packages
 branches:
   only:
