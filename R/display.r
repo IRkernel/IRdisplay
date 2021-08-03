@@ -4,6 +4,8 @@
 #' 
 #' @param data      A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})
 #' @param metadata  A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}
+#' @param wait      Wait to clear the output until new output is available. Default \code{TRUE}. If \code{FALSE}, clears the existing output immediately
+#'                  before the new output is displayed.
 #' 
 #' @seealso \code{\link{prepare_mimebundle}}
 #' 
