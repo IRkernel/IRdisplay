@@ -13,6 +13,8 @@ clear_output(wait = TRUE)
 \item{data}{A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})}
 
 \item{metadata}{A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}}
+
+\item{wait}{Wait to clear the output until new output is available. Default \code{TRUE}. If \code{FALSE}, clears the existing output immediately before the new output is displayed.}
 }
 \description{
 Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
