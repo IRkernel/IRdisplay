@@ -15,11 +15,14 @@
 #' 	Has the signature \code{function(data, metadata = NULL)}.
 #' 	Per default emits a \code{\link{warning}}, and is set when running an \code{IRkernel}.
 #' }
-#' 
+#' \item{\code{jupyter.clear_output_func}}{
+#' 	Function used by \code{\link{clear_output}}. Has the signature \code{function(wait = TRUE)}.
+#' 	Per default emits a \code{\link{warning}}, and is set when running an \code{IRkernel}.
 #' }
-#' 
-#' @rdname IRdisplay-options
-#' @aliases IRdisplay-options
+#'
+#' }
+#'
+#' @name IRdisplay-options
 #' @export
 irdisplay_option_defaults <- list(
     jupyter.display_mimetypes = c(
@@ -27,21 +30,24 @@ irdisplay_option_defaults <- list(
         'text/html',
         'text/markdown',
         'text/latex',
-        
+
         'application/json',
         'application/javascript',
-        
+
         'application/geo+json',
         'application/vdom.v1+json',
         'application/vnd.plotly.v1+json',
         'application/vnd.vegalite.v2+json',
         'application/vnd.vega.v4+json',
-        
+
         'application/pdf',
         'image/png',
         'image/jpeg',
         'image/svg+xml'),
     jupyter.base_display_func = function(data, metadata = NULL) {
+        warning('IRdisplay can only be used from the IPython R kernel and R magic.')
+    },
+    jupyter.clear_output_func = function(wait = TRUE) {
         warning('IRdisplay can only be used from the IPython R kernel and R magic.')
     })
 

@@ -1,9 +1,12 @@
 #' Display data by mimetype, with optional alternative representations.
 #' 
-#' Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
+#' \code{publish_mimebundle} calls the function stored as option value of \code{jupyter.base_display_func},
+#' \code{clear_output} calls the value of option \code{jupyter.clear_output_func}. (see: \link{IRdisplay-options})
 #' 
 #' @param data      A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})
 #' @param metadata  A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}
+#' @param wait      Wait to clear the output until new output is available. Default \code{TRUE}.
+#'                  If \code{FALSE}, clears the existing output immediately before the new output is displayed.
 #' 
 #' @seealso \code{\link{prepare_mimebundle}}
 #' 
@@ -11,11 +14,24 @@
 #' publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
 #' publish_mimebundle(
 #'   list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
-#'   list('image/svg+xml' = list(width = 100, height = 100)))}
+#'   list('image/svg+xml' = list(width = 100, height = 100)))
+#' 
+#' for (i in 1:5) {
+#'   Sys.sleep(.2)    # simulate work
+#'   clear_output()   # clear previous iteration
+#'   cat(i)           # alternative: IRdisplay::display(i)
+#'   flush.console()  # make output available
+#' }}
 #' 
 #' @export
 publish_mimebundle <- function(data, metadata = NULL) {
     getOption('jupyter.base_display_func')(data, metadata)
+}
+
+#' @describeIn publish_mimebundle Clear the output from the current cell.
+#' @export
+clear_output <- function(wait = TRUE) {
+    getOption('jupyter.clear_output_func')(wait)
 }
 
 #' Create and use multiple available reprs

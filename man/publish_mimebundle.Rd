@@ -2,24 +2,43 @@
 % Please edit documentation in R/display.r
 \name{publish_mimebundle}
 \alias{publish_mimebundle}
+\alias{clear_output}
 \title{Display data by mimetype, with optional alternative representations.}
 \usage{
 publish_mimebundle(data, metadata = NULL)
+
+clear_output(wait = TRUE)
 }
 \arguments{
 \item{data}{A named list mapping mimetypes to content (\code{\link[base]{character}} or \code{\link[base]{raw} vectors})}
 
 \item{metadata}{A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}}
+
+\item{wait}{Wait to clear the output until new output is available. Default \code{TRUE}.
+If \code{FALSE}, clears the existing output immediately before the new output is displayed.}
 }
 \description{
-Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
+\code{publish_mimebundle} calls the function stored as option value of \code{jupyter.base_display_func},
+\code{clear_output} calls the value of option \code{jupyter.clear_output_func}. (see: \link{IRdisplay-options})
 }
+\section{Functions}{
+\itemize{
+\item \code{clear_output}: Clear the output from the current cell.
+}}
+
 \examples{
 \dontrun{## (Run inside of an IRkernel)
 publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
 publish_mimebundle(
   list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
-  list('image/svg+xml' = list(width = 100, height = 100)))}
+  list('image/svg+xml' = list(width = 100, height = 100)))
+
+for (i in 1:5) {
+  Sys.sleep(.2)    # simulate work
+  clear_output()   # clear previous iteration
+  cat(i)           # alternative: IRdisplay::display(i)
+  flush.console()  # make output available
+}}
 
 }
 \seealso{
