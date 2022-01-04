@@ -14,8 +14,14 @@
 #' publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
 #' publish_mimebundle(
 #'   list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
-#'   list('image/svg+xml' = list(width = 100, height = 100)))}
-#' clear_output()
+#'   list('image/svg+xml' = list(width = 100, height = 100)))
+#' 
+#' for (i in 1:5) {
+#'   Sys.sleep(.2)    # simulate work
+#'   clear_output()   # clear previous iteration
+#'   cat(i)           # alternative: IRdisplay::display(i)
+#'   flush.console()  # make output available
+#' }}
 #' 
 #' @export
 publish_mimebundle <- function(data, metadata = NULL) {
