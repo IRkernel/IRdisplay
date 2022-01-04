@@ -14,10 +14,12 @@ clear_output(wait = TRUE)
 
 \item{metadata}{A named list mapping mimetypes to named lists of metadata, e.g. \code{list('image/png' = list(width = 5))}}
 
-\item{wait}{Wait to clear the output until new output is available. Default \code{TRUE}. If \code{FALSE}, clears the existing output immediately before the new output is displayed.}
+\item{wait}{Wait to clear the output until new output is available. Default \code{TRUE}.
+If \code{FALSE}, clears the existing output immediately before the new output is displayed.}
 }
 \description{
-Calls the function stored as option value of \code{jupyter.base_display_func}. (see: \link{IRdisplay-options})
+\code{publish_mimebundle} calls the function stored as option value of \code{jupyter.base_display_func},
+\code{clear_output} calls the value of option \code{jupyter.clear_output_func}. (see: \link{IRdisplay-options})
 }
 \section{Functions}{
 \itemize{
@@ -30,6 +32,7 @@ publish_mimebundle(list('text/html' = '<h1>Hi!</h1>'))
 publish_mimebundle(
   list('image/svg+xml' = '<svg xmlns="http://www.w3.org/2000/svg"><circle r="100"/></svg>'),
   list('image/svg+xml' = list(width = 100, height = 100)))}
+clear_output()
 
 }
 \seealso{
