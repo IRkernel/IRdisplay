@@ -1,5 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 [.]pdf$
-^\.travis.yml$
+^\.github$
 ^cran-comments.md$
